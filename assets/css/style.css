@@ -16,3 +16,25 @@ h2 {
 a {
   color: #8ab4ff;
 }
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 48px;
+}
+
+nav a {
+  color: #8ab4ff;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
