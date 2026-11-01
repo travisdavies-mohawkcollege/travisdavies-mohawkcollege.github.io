@@ -40,25 +40,35 @@
       <h2>Development Log</h2>
 
       <article>
-        <h3>November 1, 2026 — Example Devlog Entry</h3>
+        <h3>November 1, 2026 — Crypt so far.</h3>
 
         <p>
-          This will be different soon!
+          Crypt has been a challenge to create, requiring me to research and implement 3D procedural dungeon generation and inventory systems.
+          Both of these systems are massively important to the gameplay experience of Crypt: you can't loot without an inventory system, and you can't
+          fight through non existant dungeons! 
         </p>
 
-        <h4>What I completed</h4>
+        <h4>Inventory Systems</h4>
+        <p>
 
-        <ul>
-          <li>Created the project</li>
-          <li>Planned the first version</li>
-          <li>Started working on the main mechanics</li>
-        </ul>
+        </p>
+
+        <h4>Dungeon Generation</h4>
+        <p>
+          I created a dungeon generation system that uses a three dimensonal grid of Vector3Ints to track cell occupation. Cells each create their own new script, which tracks the information given
+          to it by the generator. For example, a cell knows which rooms it connects to and where it was entered from. This allows the later spawned prefabs to properly enable/disable
+          walls, doors and other assets within the room. This system allowed for massive mazelike dungeons, although they were not particularly interesting, especially with the rough
+          visual style. To expand from this point I began to make modules, which are rooms that can occupy any number of cells, rather then just one. These modules reserve their footprint, and the dungeon keeps
+          track of where their entrances are for future use. Since the entrances are placed within the prefab, I could theoratically make massive arenas with a lot of exits and the dungeon would be able
+          to connect to any of them to continue it's generation. This is massive boon to the interest of our dungeon generation! Now we can have handcrafted challenges, visually distinct shapes and 
+          actual level design in the dungeon.
+        </p>
 
         <h4>Next steps</h4>
 
         <p>
-          Next, I plan to create the first playable area and test the
-          basic controls.
+          I am currently working on reworking the visuals of the dungeon to reach a higher fidelity and flesh out the liminal feeling that we want for our dungeon.
+          I will post another devlog diving into this work soon!
         </p>
       </article>
 
