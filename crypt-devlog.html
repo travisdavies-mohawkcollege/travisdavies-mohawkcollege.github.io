@@ -22,6 +22,7 @@
     <header>
       <h1>Crypt</h1>
       <p>Development notes and progress updates for Crypt.</p>
+      <p>Created by JoyCrypt Games</p>
       <p><strong>Status:</strong> Active development</p>
     </header>
 
@@ -38,7 +39,53 @@
     <!-- Add new devlog entries above the older entries -->
     <section>
       <h2>Development Log</h2>
+      <article>
+        <h3>November 8, 2026 — Settings and Visual Changes</h3>
 
+        <p>
+          Today I quickly look at creating settings, a neccesary task that I always put off, even in my GameJam games. As well, I check out the visual rehaul for the more permanent liminal dungeon theme.
+        </p>
+
+        <h4>Settings</h4>
+        <p>
+          I created a settings menu that allows players to adjust mouse sensitivity, field of view, view bobbing, and separate volume levels for master audio, music, and sound effects. 
+          The menu reads the current values when it opens, displays them through sliders and toggles, and sends any changes to a central settings manager. 
+          While building this system, I learned how to use Unity’s PlayerPrefs, which provides simple key-and-value storage for information that should persist between sessions. 
+          Floats can be stored directly, while boolean settings such as view bobbing are converted into integers when saved and converted back when loaded.
+          I also added default values for players opening the game for the first time and clamped each setting to a safe range before saving it. 
+          When settings change, the manager broadcasts an event so systems such as the player controller can immediately update without constantly checking the menu. 
+          This taught me to separate displaying, saving, and applying settings, while giving the project a foundation that can easily support more accessibility, audio, and graphical options later.
+          In the future, adding seetings like this will be a top priority to keep playtesting less frustrating, especially since incorrect sensitivity is one of the first things a player will complain about.
+        </p>
+
+        <h4>Dungeon Visual Rework</h4>
+        <p>
+          The dungeon was looking pretty rough. Placeholder textures and a lack of modules made the generation feel repetitive and extremely empty. 
+          The blank skybox also left no room for imagination or interesting scenery whenever the player could see outside the dungeon. 
+          Instead of making the environment feel mysterious, these openings only exposed the limitations of the level.
+
+          I decided to improve this in several ways: adding a new skybox, creating a separate background dungeon generator, and opening selected roofs, walls, and sections of brickwork throughout the playable dungeon. 
+          The background generator creates distant, unreachable rooms, corridors, towers, and bridges around the main level. 
+          These structures do not need to form a fully playable dungeon; they exist to create silhouettes and suggest that the environment continues far beyond the area the player can explore.
+
+          Opening parts of the dungeon allows the player to occasionally look into this enormous void of seemingly endless architecture. 
+          Rather than seeing a normal outdoor environment, they see more dungeon stretching outward, upward, and downward into the distance. 
+          This greatly supports the liminal theme because it makes the dungeon feel less like a collection of rooms and more like an impossible place with no clear beginning or end. 
+          Familiar structures are repeated at an unfamiliar scale, with distant corridors that cannot be reached and rooms that appear to serve no purpose. 
+          The player is given just enough information to imagine what might exist beyond the playable space, without ever receiving a complete answer.
+
+          These openings also create contrast within the level. Enclosed hallways can suddenly lead into spaces overlooking a massive vertical drop, while broken ceilings reveal structures suspended far above the player. 
+          The dungeon now feels like a small accessible section of something much larger and stranger. Instead of the void exposing the edge of the level, it has become part of the atmosphere and identity of the dungeon itself.
+          
+        </p>
+
+        <h4>Next steps</h4>
+
+        <p>
+          Next week I will dive into tying my teammates enemy AI into the game and the damage systems, and explore the creation of some new runes and modules for the dungeon!
+        </p>
+      </article>
+      
       <article>
         <h3>November 1, 2026 — Crypt so far.</h3>
 
@@ -50,18 +97,24 @@
 
         <h4>Inventory Systems</h4>
         <p>
-
+          I created an inventory system that separates an item’s shared definition from its individual generated instance. Item definitions contain consistent information such as names, icons, stack limits, base stats, and valid equipment slots, while generated items store their own unique identity and randomly rolled bonuses. 
+          This allows resources to stack normally while ensuring that every piece of equipment remains individually identifiable.
+          Equipment remains inside the player’s inventory, while a separate loadout records which specific item instance is assigned to each slot. 
+          Weapons can be equipped in the main hand or off hand, provided that their definition allows that slot, and the player can switch between these hands during combat. 
+          The equipped weapon determines which attacks and passive effects are currently available. Whenever the loadout changes, the player’s combat stats are automatically rebuilt using both the item’s base stats and its generated bonuses, including elemental attack and resistance values.
+          The equipment service also validates each action, preventing stackable items from being equipped, stopping the same item from occupying multiple slots, and ensuring the item actually exists in the player’s inventory.
+          This ties the inventory, equipment, combat, and stat systems together while still keeping each part separate enough to expand later.
         </p>
 
         <h4>Dungeon Generation</h4>
         <p>
-          I created a dungeon generation system that uses a three dimensonal grid of Vector3Ints to track cell occupation. Cells each create their own new script, which tracks the information given
-          to it by the generator. For example, a cell knows which rooms it connects to and where it was entered from. This allows the later spawned prefabs to properly enable/disable
-          walls, doors and other assets within the room. This system allowed for massive mazelike dungeons, although they were not particularly interesting, especially with the rough
-          visual style. To expand from this point I began to make modules, which are rooms that can occupy any number of cells, rather then just one. These modules reserve their footprint, and the dungeon keeps
-          track of where their entrances are for future use. Since the entrances are placed within the prefab, I could theoratically make massive arenas with a lot of exits and the dungeon would be able
-          to connect to any of them to continue it's generation. This is massive boon to the interest of our dungeon generation! Now we can have handcrafted challenges, visually distinct shapes and 
-          actual level design in the dungeon.
+          I created a dungeon generation system that uses a three-dimensional grid of Vector3Ints to track cell occupation. 
+          Each cell creates its own data object containing the information given to it by the generator. For example, a cell knows which rooms it connects to and the direction it was entered from. This allows the prefabs spawned later to correctly enable or disable walls, doors, and other assets within the room. 
+          The system allowed me to create massive maze-like dungeons, although they were not particularly interesting, especially with the rough visual style. 
+          To expand on this, I began creating modules: handcrafted rooms that can occupy any number of cells rather than just one.
+          These modules reserve their entire footprint, while the dungeon tracks their available entrances for future connections. 
+          Because the entrances are placed within the prefab, I could theoretically create massive arenas with many exits, and the dungeon would be able to connect to any of them as it continues generating. 
+          This has been a massive boon to the variety of the dungeon. It allows for handcrafted challenges, visually distinct spaces, and actual level design within a procedurally generated layout.
         </p>
 
         <h4>Next steps</h4>
@@ -74,13 +127,7 @@
 
       <hr>
 
-      <article>
-        <h3>Example Older Entry</h3>
-
-        <p>
-          Will fill this in too.
-        </p>
-      </article>
+      
     </section>
 
     <!-- Link back to the list of devlogs -->
